@@ -3,7 +3,6 @@ import {
   AppBar,
   Toolbar,
   IconButton,
-  Typography,
   Button,
 } from '@material-ui/core';
 
@@ -13,6 +12,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import VideoCallIcon from '@material-ui/icons/VideoCall';
 import AppsIcon from '@material-ui/icons/Apps';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import NavBar from './NavBar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     boxShadow: 'none',
+    zIndex: theme.zIndex.drawer + 1,
   },
   logoContainer: {
     display: 'flex',
@@ -82,6 +83,7 @@ function TopBar() {
           </div>
         </Toolbar>
       </AppBar>
+      <NavBar />
     </div>
   );
 }
