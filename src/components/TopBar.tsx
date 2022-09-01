@@ -1,3 +1,6 @@
+import Store from '../stores/darkStore';
+import { useContext } from 'react';
+import { observer } from 'mobx-react-lite';
 import {
   makeStyles,
   AppBar,
@@ -6,18 +9,18 @@ import {
   Button,
 } from '@material-ui/core';
 
+import Switch from '@material-ui/core/Switch';
+
+import { useTheme } from '@material-ui/core/styles';
+
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import VideoCallIcon from '@material-ui/icons/VideoCall';
 import AppsIcon from '@material-ui/icons/Apps';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import NavBar from './NavBar';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    height: '100vh',
-  },
   appBar: {
     boxShadow: 'none',
     zIndex: theme.zIndex.drawer + 1,
@@ -44,33 +47,44 @@ const useStyles = makeStyles((theme) => ({
 
 function TopBar() {
   const classes = useStyles();
+  const theme = useTheme();
+  const store = useContext(Store);
+  const { darkMode, setDarkMode } = store;
   return (
-    <div className={classes.root}>
+    <>
       <AppBar color="inherit" className={classes.appBar}>
         <Toolbar className={classes.toolBar}>
           <div className={classes.logoContainer}>
             <IconButton
               edge="start"
               className={classes.menuIcon}
-              color="inherit"
               aria-label="menu"
             >
               <MenuIcon />
             </IconButton>
             <img
-              src="/images/black.png"
+              src={
+                theme.palette.type === 'dark'
+                  ? '/images/white.png'
+                  : '/images/black.png'
+              }
               alt="Youtube logo"
               className={classes.logo}
             />
           </div>
           <div>
-            <IconButton className={classes.icons} color="inherit">
+            <Switch
+              value={darkMode}
+              onChange={() => setDarkMode()}
+              className={classes.icons}
+            ></Switch>
+            <IconButton className={classes.icons}>
               <VideoCallIcon />
             </IconButton>
-            <IconButton className={classes.icons} color="inherit">
+            <IconButton className={classes.icons}>
               <AppsIcon />
             </IconButton>
-            <IconButton className={classes.icons} color="inherit">
+            <IconButton className={classes.icons}>
               <MoreVertIcon />
             </IconButton>
             <Button
@@ -83,9 +97,8 @@ function TopBar() {
           </div>
         </Toolbar>
       </AppBar>
-      <NavBar />
-    </div>
+    </>
   );
 }
 
-export default TopBar;
+export default observer(TopBar);

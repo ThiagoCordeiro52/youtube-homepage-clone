@@ -1,9 +1,7 @@
-import {
-  Button,
-  ThemeProvider,
-  createTheme,
-  makeStyles,
-} from '@material-ui/core';
+import { ThemeProvider, createTheme, makeStyles } from '@material-ui/core';
+import { useContext } from 'react';
+import Store from '../src/stores/darkStore';
+import { observer } from 'mobx-react-lite';
 
 import Home from './pages/Home';
 
@@ -15,13 +13,19 @@ const useStyles = makeStyles({
 });
 
 function App() {
+  const { darkMode, setDarkMode } = useContext(Store);
   const theme = createTheme({
     palette: {
+      type: darkMode ? 'dark' : 'light',
       primary: {
         main: '#f44336',
       },
       secondary: {
         main: '#3f51b5',
+      },
+      background: {
+        default: darkMode ? '#232323' : '#FFF',
+        paper: darkMode ? '#232323' : '#FFF',
       },
     },
   });
@@ -35,4 +39,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);
