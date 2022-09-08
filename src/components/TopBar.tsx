@@ -101,4 +101,4 @@ function TopBar() {
   );
 }
 
-export default observer(TopBar);
+export default TopBar;

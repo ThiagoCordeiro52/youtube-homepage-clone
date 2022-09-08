@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 function NavBar() {
   const classes = useStyles();
   return (
-    <Hidden mdDown>
+    <Hidden mdDown={true}>
       <Drawer
         className={classes.drawer}
         variant="permanent"
